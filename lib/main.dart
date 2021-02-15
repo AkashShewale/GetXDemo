@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-
-import 'pages/SecondPage.dart';
+import 'package:getx_library/controller/LoginCotroller.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'GetX Demo'),
+      home: MyHomePage(title: 'GetX Login Example'),
     );
   }
 }
@@ -32,6 +30,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  var userNameController=TextEditingController();
+  var passwordController=TextEditingController();
+
+  var loginController=Get.put(LoginController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,12 +45,38 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Container(
         child: Center(
-           child: ElevatedButton(
-             child: Text("Next Screen"),
-             onPressed: (){
-               Get.to(SecondPage());
-             },
-           ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextField(
+                  decoration: InputDecoration(labelText: 'Enter Username',hintText: 'Username'),
+                  controller: userNameController,
+                ),
+
+                SizedBox(height: 30),
+
+                TextField(
+                  decoration: InputDecoration(labelText: 'Enter password',hintText: 'Password'),
+                  controller: passwordController,
+                  obscureText: true,
+                ),
+
+                SizedBox(height: 30),
+
+                ElevatedButton(
+                  child: Text("Login"),
+                  onPressed: () {
+                    //Get.to(SecondPage());
+                    print('clicked on login button...');
+                    loginController.checkLogin(userNameController.text,passwordController.text);
+
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

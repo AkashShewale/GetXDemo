@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_library/common_widgets/ProgressDialog.dart';
 import 'package:getx_library/controller/LoginCotroller.dart';
+import 'package:getx_library/models/login_responce.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,10 +32,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  var userNameController=TextEditingController();
-  var passwordController=TextEditingController();
-
-  var loginController=Get.put(LoginController());
+  var userNameController = TextEditingController();
+  var passwordController = TextEditingController();
+  var loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +52,16 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextField(
-                  decoration: InputDecoration(labelText: 'Enter Username',hintText: 'Username'),
+                  decoration: InputDecoration(
+                      labelText: 'Enter Username', hintText: 'Username'),
                   controller: userNameController,
                 ),
 
                 SizedBox(height: 30),
 
                 TextField(
-                  decoration: InputDecoration(labelText: 'Enter password',hintText: 'Password'),
+                  decoration: InputDecoration(
+                      labelText: 'Enter password', hintText: 'Password'),
                   controller: passwordController,
                   obscureText: true,
                 ),
@@ -67,12 +70,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 ElevatedButton(
                   child: Text("Login"),
-                  onPressed: () {
-                    //Get.to(SecondPage());
-                    print('clicked on login button...');
-                    loginController.checkLogin(userNameController.text,passwordController.text);
+                  onPressed: () async {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (_) => ProgressDialog(),
+                    );
+                    LoginResponce login= await loginController.checkLogin("userName", "password");
 
-                  },
+                    if(login !=null)
+                      {
+                        Navigator.pop(context);
+                      }
+                    print(login.status);
+                  }
                 ),
               ],
             ),

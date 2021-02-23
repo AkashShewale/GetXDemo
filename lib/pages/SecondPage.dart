@@ -11,13 +11,6 @@ class _UserListPageState extends State<SecondPage> {
   var userStateController = Get.put(HomeController());
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    //userStateController.getUsersData();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

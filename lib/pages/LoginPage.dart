@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:getx_library/common_widgets/ProgressDialog.dart';
 import 'package:getx_library/controller/LoginCotroller.dart';
 import 'package:getx_library/models/login_responce.dart';
+import 'package:getx_library/pages/SecondPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -81,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     if(login !=null)
                       {
                         Navigator.pop(context);
+                        Get.to(SecondPage());
                       }
                     print(login.status);
                   }
